@@ -166,6 +166,7 @@ function App() {
   }
 
   useEffect(() => {
+    console.log(isUserLoggedIn);
     if (isUserLoggedIn) {
       api
         .getCardList()
