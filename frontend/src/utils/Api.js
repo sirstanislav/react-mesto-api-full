@@ -69,7 +69,7 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-39",
+  baseUrl: "https://api.ctacleo.nomoredomains.xyz",
   headers: {
     authorization: "787a2830-fec0-4832-b8d1-85b319400036",
     "Content-Type": "application/json",
