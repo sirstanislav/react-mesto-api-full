@@ -5,7 +5,6 @@ let payload;
 
 const isAuthorized = (req, res, next) => {
   const auth = req.headers.authorization;
-  console.log('req.headers.authorization', req.headers.authorization);
   if (!auth) {
     throw new TrowUnauthorizedError('Авторизуйтесь для доступа!');
   }

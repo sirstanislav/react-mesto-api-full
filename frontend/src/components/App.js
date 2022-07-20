@@ -34,13 +34,31 @@ function App() {
   const [token, setToken] = useState("");
   const history = useNavigate();
 
+  function checkToken() {
+    if (localStorage.getItem("jwt")) {
+      const jwt = localStorage.getItem("jwt");
+      setToken(jwt);
+      Auth.token(jwt)
+        .then((res) => {
+          if (res) {
+            const userData = {
+              email: res.email,
+            };
+            setEmail(userData.email);
+            setIsUserLoggedIn(true);
+          }
+        })
+        .catch((err) => console.log(`Ошибка токена: ${err}`));
+    }
+  }
+
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
-      .changeLikeCardStatus(card._id, !isLiked)
+      .changeLikeCardStatus(card._id, !isLiked, token)
       .then((newCard) => {
         setCards((state) =>
           state.map((item) => (item._id === card._id ? newCard : item))
@@ -51,7 +69,7 @@ function App() {
 
   function handleCardDelete(card) {
     api
-      .deleteCard(card._id)
+      .deleteCard(card._id, token)
       .then(() => {
         setCards((state) => state.filter((item) => item._id !== card._id));
       })
@@ -88,7 +106,7 @@ function App() {
 
   function handleUpdateUser({ name, about }) {
     api
-      .setUserInfo(name, about)
+      .setUserInfo(name, about, token)
       .then((res) => {
         setCurrentUser(res);
         handleCloseAllPopups();
@@ -98,7 +116,7 @@ function App() {
 
   function handleAddPlaceSubmit({ name, link }) {
     api
-      .addCard(name, link)
+      .addCard(name, link, token)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         handleCloseAllPopups();
@@ -108,7 +126,7 @@ function App() {
 
   function handleUpdateAvatar({ avatar }) {
     api
-      .setUserAvatar(avatar)
+      .setUserAvatar(avatar, token)
       .then((res) => {
         setCurrentUser(res);
         handleCloseAllPopups();
@@ -119,11 +137,11 @@ function App() {
   function handleLogin(password, email) {
     return Auth.autorisation(password, email)
       .then((data) => {
-        console.log('Front: handleLogin: TOKEN', data);
         if (data.token) {
           localStorage.setItem("jwt", data.token);
           setEmail(email)
           setIsUserLoggedIn(true);
+          setToken(data.token)
         }
       })
       .catch((error) => {
@@ -143,38 +161,16 @@ function App() {
       });
   }
 
-  function checkToken() {
-    if (localStorage.getItem("jwt")) {
-      console.log('LocalStorage', localStorage.getItem("jwt"));
-      const jwt = localStorage.getItem("jwt");
-      setToken(jwt);
-      Auth.token(jwt)
-        .then((res) => {
-          console.log('checkToken() => res.data.email:', res.data.email);
-          if (res) {
-            const userData = {
-              email: res.data.email,
-            };
-            setEmail(userData.email);
-            setIsUserLoggedIn(true);
-          }
-        })
-        .catch((err) => console.log(`Ошибка токена: ${err}`));
-    }
-  }
-
   function handleSignOut() {
     setIsUserLoggedIn(false);
     localStorage.removeItem("jwt");
   }
 
   useEffect(() => {
-    console.log('Status isUserLoggedIn:',isUserLoggedIn);
     if (isUserLoggedIn) {
       api
-        .getCardList()
+        .getCardList(token)
         .then((res) => {
-          console.log('Status res getCardList:', res);
           setCards(res);
         })
         .catch((err) => console.log(`Ошибка загрузки карточек: ${err}`));
@@ -182,7 +178,6 @@ function App() {
       api
         .getUserInfo(token)
         .then((res) => {
-          console.log('Status res getUserInfo:', res);
           setCurrentUser(res);
         })
         .catch((err) =>
@@ -192,7 +187,7 @@ function App() {
     }
   }, [isUserLoggedIn]);
 
-  useEffect(() => {
+    useEffect(() => {
     checkToken();
   }, []);
 

@@ -6,15 +6,20 @@ class Api {
 
   getUserInfo(token) {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-      authorization: 'Bearer ' + token,
+      headers: {
+        ...this._headers,
+        authorization: 'Bearer ' + token
+      },
     }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
   }
 
-  setUserInfo(name, about) {
+  setUserInfo(name, about, token) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        authorization: 'Bearer ' + token
+      },
       body: JSON.stringify({
         name,
         about,
@@ -22,26 +27,35 @@ class Api {
     }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
   }
 
-  setUserAvatar(avatar) {
+  setUserAvatar(avatar, token) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        authorization: 'Bearer ' + token
+      },
       body: JSON.stringify({
         avatar,
       }),
     }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
   }
 
-  getCardList() {
+  getCardList(token) {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        authorization: 'Bearer ' + token
+      },
     }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
   }
 
-  addCard(name, link) {
+  addCard(name, link, token) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        authorization: 'Bearer ' + token
+      },
       body: JSON.stringify({
         name,
         link,
@@ -49,22 +63,31 @@ class Api {
     }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
   }
 
-  deleteCard(id) {
+  deleteCard(id, token) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        authorization: 'Bearer ' + token
+      },
     }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
   }
 
-  changeLikeCardStatus(id, isLiked) {
+  changeLikeCardStatus(id, isLiked, token) {
     return isLiked
       ? fetch(`${this._baseUrl}/cards/${id}/likes`, {
           method: "PUT",
-          headers: this._headers,
+          headers: {
+            ...this._headers,
+            authorization: 'Bearer ' + token
+          },
         }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
       : fetch(`${this._baseUrl}/cards/${id}/likes`, {
           method: "DELETE",
-          headers: this._headers,
+          headers: {
+            ...this._headers,
+            authorization: 'Bearer ' + token
+          },
         }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
   }
 }
