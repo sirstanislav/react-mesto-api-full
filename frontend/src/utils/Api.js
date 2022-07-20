@@ -4,9 +4,10 @@ class Api {
     this._headers = headers;
   }
 
-  getUserInfo() {
+  getUserInfo(token) {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
+      authorization: 'Bearer ' + token,
     }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
   }
 

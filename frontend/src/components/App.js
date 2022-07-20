@@ -31,6 +31,7 @@ function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [token, setToken] = useState("");
   const history = useNavigate();
 
   function handleCardLike(card) {
@@ -118,7 +119,7 @@ function App() {
   function handleLogin(password, email) {
     return Auth.autorisation(password, email)
       .then((data) => {
-        console.log(data)
+        console.log('Front: handleLogin: TOKEN', data);
         if (data.token) {
           localStorage.setItem("jwt", data.token);
           setEmail(email)
@@ -144,10 +145,12 @@ function App() {
 
   function checkToken() {
     if (localStorage.getItem("jwt")) {
+      console.log('LocalStorage', localStorage.getItem("jwt"));
       const jwt = localStorage.getItem("jwt");
+      setToken(jwt);
       Auth.token(jwt)
         .then((res) => {
-          console.log(res.data.email);
+          console.log('checkToken() => res.data.email:', res.data.email);
           if (res) {
             const userData = {
               email: res.data.email,
@@ -166,18 +169,20 @@ function App() {
   }
 
   useEffect(() => {
-    console.log(isUserLoggedIn);
+    console.log('Status isUserLoggedIn:',isUserLoggedIn);
     if (isUserLoggedIn) {
       api
         .getCardList()
         .then((res) => {
+          console.log('Status res getCardList:', res);
           setCards(res);
         })
         .catch((err) => console.log(`Ошибка загрузки карточек: ${err}`));
 
       api
-        .getUserInfo()
+        .getUserInfo(token)
         .then((res) => {
+          console.log('Status res getUserInfo:', res);
           setCurrentUser(res);
         })
         .catch((err) =>
