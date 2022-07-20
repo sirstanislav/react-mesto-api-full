@@ -147,6 +147,7 @@ function App() {
       const jwt = localStorage.getItem("jwt");
       Auth.token(jwt)
         .then((res) => {
+          console.log(res.data.email);
           if (res) {
             const userData = {
               email: res.data.email,
