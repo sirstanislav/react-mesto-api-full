@@ -19,7 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* ubuntu@ec2-3-72-26-132.eu-central-1.compute.amazonaws.com:/home/ubuntu/react-mesto-api-full/frontend/"
+    "deploy": "npm run build && scp -r ./build/* ubuntu@ec2-3-72-26-132.eu-central-1.compute.amazonaws.com:/home/ubuntu/react-mesto-api-full/frontend/build/"
   },
   "eslintConfig": {
     "extends": [
