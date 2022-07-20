@@ -1,0 +1,34 @@
+.profile__avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  min-width: 120px;
+  height: 120px;
+  background-image: none;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.profile__avatar::before {
+  background-image: url(../../../images/profile__avatar-edit.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #000000cc;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  
+}
+
+.profile__avatar:hover::before {
+  opacity: 1;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+

@@ -1,0 +1,7 @@
+.card__like-count {
+  position: absolute;
+  right: 26px;
+  bottom: 22px;
+  width: 10px;
+  height: 13px;
+}

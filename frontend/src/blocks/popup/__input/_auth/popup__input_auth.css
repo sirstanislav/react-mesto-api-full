@@ -1,0 +1,9 @@
+.popup__input_auth {
+  border-bottom: 2px solid #cccccc;
+  background-color: transparent;
+  color: #cccccc;
+}
+
+.popup__input_auth::placeholder {
+  color: #cccccc;
+}

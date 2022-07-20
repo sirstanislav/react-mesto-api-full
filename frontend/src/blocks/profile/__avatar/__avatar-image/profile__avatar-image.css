@@ -1,0 +1,11 @@
+.profile__avatar-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile__avatar-image:hover {
+  opacity: .8;
+  transition: opacity .3s linear;
+  cursor: pointer;
+}

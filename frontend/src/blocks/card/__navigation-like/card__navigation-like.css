@@ -1,0 +1,24 @@
+.card__navigation-like {
+  min-width: 22px;
+  min-height: 19px;
+
+  background-image: url(../../../images/card__like.svg);
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 0;
+
+  align-self: flex-start;
+  
+  margin: 0;
+  padding: 0;
+}
+
+.card__navigation-like:hover {
+  opacity: .5;
+  transition: opacity .3s linear;
+  -webkit-transition: opacity .3s linear;
+  -moz-transition: opacity .3s linear;
+  -ms-transition: opacity .3s linear;
+  -o-transition: opacity .3s linear;
+  cursor: pointer;
+}
