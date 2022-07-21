@@ -5,7 +5,7 @@ const allowedCors = [
   'localhost:3000',
 ];
 
-module.exports = ((res, req, next) => {
+module.exports = ((req, res, next) => {
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
   // проверяем, что источник запроса есть среди разрешённых
   const { method } = req; // Сохраняем тип запроса (HTTP-метод) в соответствующую переменную
