@@ -11,7 +11,7 @@ module.exports.login = (req, res, next) => {
 
   User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'secret', { expiresIn: '24h' });
+      const token = jwt.sign({ _id: user._id }, 'dev-secret', { expiresIn: '24h' });
       res.send({ token });
     })
     .catch((err) => {
