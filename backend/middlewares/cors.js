@@ -1,11 +1,11 @@
-// Массив доменов, с которых разрешены кросс-доменные запросы
-const allowedCors = [
-  'https://ctacleo.nomoredomains.xyz',
-  'http://ctacleo.nomoredomains.xyz',
-  'localhost:3000',
-];
-
 module.exports = ((res, req, next) => {
+  // Массив доменов, с которых разрешены кросс-доменные запросы
+  const allowedCors = [
+    'https://ctacleo.nomoredomains.xyz',
+    'http://ctacleo.nomoredomains.xyz',
+    'localhost:3000',
+  ];
+
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
   // проверяем, что источник запроса есть среди разрешённых
   const { method } = req; // Сохраняем тип запроса (HTTP-метод) в соответствующую переменную
