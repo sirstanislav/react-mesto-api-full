@@ -10,7 +10,7 @@ const {
   createUser,
 } = require('./controllers/users');
 const { isAuthorized } = require('./middlewares/auth');
-const { cors } = require('./middlewares/cors');
+const cors = require('./middlewares/cors');
 const { NotFound } = require('./errors/NotFound');
 
 const { REG_LINK } = require('./const/const');
