@@ -30,10 +30,10 @@ const isAuthorized = (req, res, next) => {
     } else {
       console.log('\x1b[33m%s\x1b[0m', 'Что-то не так', err);
     }
-
-    req.user = payload;
-    next();
   }
+
+  req.user = payload;
+  next();
 };
 
 module.exports = { isAuthorized };
