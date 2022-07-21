@@ -19,12 +19,12 @@ const isAuthorized = (req, res, next) => {
       секретный ключ, что и в режиме разработки.
     `);
   } catch (err) {
-    // throw new TrowUnauthorizedError('Авторизуйтесь для доступа!');
     if (err.name === 'JsonWebTokenError' && err.message === 'invalid signature') {
       console.log('\x1b[32m%s\x1b[0m', 'Всё в порядке. Секретные ключи отличаются');
     } else {
       console.log('\x1b[33m%s\x1b[0m', 'Что-то не так', err);
     }
+    throw new TrowUnauthorizedError('Авторизуйтесь для доступа!');
   }
 
   req.user = payload;
