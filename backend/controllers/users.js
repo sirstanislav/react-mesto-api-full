@@ -30,7 +30,7 @@ module.exports.createUser = (req, res, next) => {
     })
       .then((user) => {
         const data = {
-          id: req.user._id,
+          id: user._id,
           name: user.name,
           about: user.about,
           avatar: user.avatar,
