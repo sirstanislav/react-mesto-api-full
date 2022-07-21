@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const { celebrate, Joi } = require('celebrate');
 const { errors } = require('celebrate');
-// const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const {
   login,
   createUser,
@@ -26,7 +26,7 @@ const { PORT = 3000 } = process.env;
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-// app.use(requestLogger); // подключаем логгер запросов
+app.use(requestLogger); // подключаем логгер запросов
 
 app.use(cors);
 
@@ -56,7 +56,7 @@ app.use((req, res, next) => {
   next(new NotFound('404 - Страницы не существует'));
 });
 
-// app.use(errorLogger); // подключаем логгер ошибок
+app.use(errorLogger); // подключаем логгер ошибок
 
 // обработчики ошибок
 app.use(errors()); // обработчик ошибок celebrate
