@@ -10,7 +10,7 @@ const {
   createUser,
 } = require('./controllers/users');
 const { isAuthorized } = require('./middlewares/auth');
-const { cros } = require('./middlewares/cros');
+const { cors } = require('./middlewares/cors');
 const { NotFound } = require('./errors/NotFound');
 
 const { REG_LINK } = require('./const/const');
@@ -28,7 +28,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 
 // app.use(requestLogger); // подключаем логгер запросов
 
-app.use(cros());
+app.use(cors);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
