@@ -54,7 +54,7 @@ function App() {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
@@ -64,7 +64,7 @@ function App() {
           state.map((item) => (item._id === card._id ? newCard : item))
         );
       })
-      .catch((err) => console.log(`Ошибка статуса лайка: ${err}`));
+      .catch((err) => console.log(`Ошибка.....: ${err}`));
   }
 
   function handleCardDelete(card) {
