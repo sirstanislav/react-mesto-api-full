@@ -50,6 +50,13 @@ app.post('/signup', celebrate({
 app.use(isAuthorized);
 
 app.use('/', require('./routes/users'));
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.use('/', require('./routes/cards'));
 
 app.use((req, res, next) => {
