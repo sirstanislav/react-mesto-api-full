@@ -46,16 +46,16 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(email,
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        return Promise.reject(new TrowUnauthorizedError('Неправильные почта или пароль'));
+        Promise.reject(new TrowUnauthorizedError('Неправильные почта или пароль'));
+      } else {
+        bcrypt.compare(password, user.password)
+          .then((matched) => {
+            if (!matched) {
+              return Promise.reject(new TrowUnauthorizedError('Неправильные почта или пароль'));
+            }
+            return user;
+          });
       }
-
-      return bcrypt.compare(password, user.password)
-        .then((matched) => {
-          if (!matched) {
-            return Promise.reject(new TrowUnauthorizedError('Неправильные почта или пароль'));
-          }
-          return user;
-        });
     });
 };
 
