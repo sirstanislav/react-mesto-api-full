@@ -19,6 +19,7 @@ module.exports = ((req, res, next) => {
   if (allowedCors.includes(origin)) {
     // устанавливаем заголовок, который разрешает браузеру запросы с этого источника
     res.header('Access-Control-Allow-Origin', origin);
+    return;
   }
 
   // Если это предварительный запрос, добавляем нужные заголовки
@@ -29,6 +30,7 @@ module.exports = ((req, res, next) => {
     res.header('Access-Control-Allow-Headers', requestHeaders);
     // завершаем обработку запроса и возвращаем результат клиенту
     res.end();
+    return;
   }
 
   next();
