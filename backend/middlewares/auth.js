@@ -15,6 +15,7 @@ const isAuthorized = (req, res, next) => {
   console.log(token);
   console.log(NODE_ENV);
   console.log(JWT_SECRET);
+  console.log(NODE_ENV === 'production');
 
   try {
     payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
