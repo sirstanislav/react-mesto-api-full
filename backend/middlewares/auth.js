@@ -13,6 +13,7 @@ const isAuthorized = (req, res, next) => {
 
   const token = auth.replace('Bearer ', '');
   console.log(token);
+  console.log(payload);
   console.log(NODE_ENV);
   console.log(JWT_SECRET);
   console.log(NODE_ENV === 'production');
