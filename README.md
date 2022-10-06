@@ -2,7 +2,7 @@
 
 ## About
 
-Mesto: An interactive page where you can register users, add photos, delete them, and like them.
+Mesto - an interactive page where you can register users, add photos, delete them, and like them.
 
 ## Running
 This project contain `frontend` and `backend` parts. You can run both use:
